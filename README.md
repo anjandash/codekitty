@@ -1,1 +1,1 @@
-# codekitty :octocat:
+codekitty :octocat:
