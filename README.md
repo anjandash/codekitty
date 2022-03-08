@@ -1,2 +1,1 @@
-# codekitty 
-## codekitty :: train and evaluate source code models on hugginface
+## *codekitty* :: train and evaluate source code models on hugginface
