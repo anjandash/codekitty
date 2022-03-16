@@ -46,7 +46,7 @@ if __name__ == "__main__":
     # ********************** #    
 
     # Load test data
-    test_data = load_dataset(dataset_name, split="test")  ## pd.read_csv(test_csv_path)
+    test_data = load_dataset(dataset_name, split="test")      ## pd.read_csv(test_csv_path)
     X_test = list(test_data["text"])
 
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)

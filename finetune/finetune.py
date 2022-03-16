@@ -49,10 +49,6 @@ if __name__ == "__main__":
     # ********************** #
     # ********************** #    
 
-    #ds_train = load_dataset(dataset_name, split="train")
-    #ds_valid = load_dataset(dataset_name, split="validation")
-    #ds_test  = load_dataset(dataset_name, split="test")    
-
     # Load train data
     train_data = load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
     tokenizer  = AutoTokenizer.from_pretrained(model_name)
@@ -70,7 +66,7 @@ if __name__ == "__main__":
 
     # Train
     args = TrainingArguments(
-        output_dir=("finetuned_" + model_name),
+        output_dir=("finetuned_" + model_name[model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
         evaluation_strategy="steps",
         eval_steps=500,
         per_device_train_batch_size=8,
