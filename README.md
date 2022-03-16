@@ -1,1 +1,1 @@
-<h3><p> codekitty || train <i>x</i> finetune <i>x</i> evaluate source code models on hugginface </p></h3>
+<h3><center> codekitty || train | finetune | evaluate source code models on hugginface </center></h3>
