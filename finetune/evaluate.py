@@ -38,9 +38,9 @@ def print_eval_scores(labels, pred):
 if __name__ == "__main__":
 
     #test_csv_path  = "test.csv"
-    model_name     = "anjandash/finetuned-bert-java-cmpx-v1"  # OR local checkpoint_path
-    tokenizer_name = "bert-base-uncased"                      # OR local checkpoint_path
-    dataset_name   = "anjandash/java-8m-methods-v1"    
+    eval_model_name = "anjandash/finetuned-bert-java-cmpx-v1"  # OR local checkpoint_path *****
+    tokenizer_name  = "bert-base-uncased"                      # OR local checkpoint_path
+    dataset_name    = "anjandash/java-8m-methods-v1"    
 
     # ********************** #
     # ********************** #    
@@ -53,8 +53,7 @@ if __name__ == "__main__":
     X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
 
     test_dataset   = Dataset(X_test_tokenized)                          
-    model          = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=10) 
-
+    model          = AutoModelForSequenceClassification.from_pretrained(eval_model_name, num_labels=10) 
     test_trainer   = Trainer(model)                           # Define test trainer
     raw_pred, _, _ = test_trainer.predict(test_dataset)       # Make prediction
     y_pred         = np.argmax(raw_pred, axis=1)              # Preprocess raw predictions

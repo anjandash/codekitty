@@ -42,17 +42,17 @@ def compute_metrics(p):
 if __name__ == "__main__":
 
     #train_csv_path = "train.csv"
-    model_name     = "bert-base-uncased"                      # OR local checkpoint_path
-    tokenizer_name = "bert-base-uncased"                      # OR local checkpoint_path
-    dataset_name   = "anjandash/java-8m-methods-v1"           
+    train_model_name = "bert-base-uncased"                      # OR local checkpoint_path
+    tokenizer_name   = "bert-base-uncased"                      # OR local checkpoint_path
+    dataset_name     = "anjandash/java-8m-methods-v1"           
 
     # ********************** #
     # ********************** #    
 
     # Load train data
     train_data = load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
-    tokenizer  = AutoTokenizer.from_pretrained(model_name)
-    model      = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=10)
+    tokenizer  = AutoTokenizer.from_pretrained(train_model_name)
+    model      = AutoModelForSequenceClassification.from_pretrained(train_model_name, num_labels=10)
 
     X = list(train_data["text"])
     y = list(train_data["label"])
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     # Train
     args = TrainingArguments(
-        output_dir=("finetuned_" + model_name[model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
+        output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
         evaluation_strategy="steps",
         eval_steps=500,
         per_device_train_batch_size=8,
