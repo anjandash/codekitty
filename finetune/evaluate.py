@@ -40,7 +40,7 @@ if __name__ == "__main__":
     #test_csv_path  = "test.csv"
     eval_model_name = "anjandash/finetuned-bert-java-cmpx-v1"  # OR local checkpoint_path *****
     tokenizer_name  = "bert-base-uncased"                      # OR local checkpoint_path
-    dataset_name    = "anjandash/java-8m-methods-v1"    
+    dataset_name    = "giganticode/java-cmpx-v1"    
 
     # ********************** #
     # ********************** #    
