@@ -91,7 +91,7 @@ if __name__ == "__main__":
     args = TrainingArguments(
         output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
         seed=config["train"]["seed"],
-        evaluation_strategy=config["evaluation_strategy"],
+        evaluation_strategy=config["train"]["evaluation_strategy"],
         eval_steps=config["train"]["eval_steps"],
         per_device_train_batch_size=config["train"]["per_device_train_batch_size"],
         per_device_eval_batch_size=config["train"]["per_device_eval_batch_size"],
