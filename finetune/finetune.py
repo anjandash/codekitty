@@ -74,7 +74,7 @@ if __name__ == "__main__":
     args = TrainingArguments(
         output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
         evaluation_strategy="steps",
-        eval_steps=500,
+        eval_steps=1000,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         num_train_epochs=1,
