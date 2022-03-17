@@ -60,7 +60,7 @@ if __name__ == "__main__":
     X = list(train_data["text"])
     y = list(train_data["label"])
 
-    tokenizer = AutoTokenizer.from_pretrained(train_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
     model = AutoModelForSequenceClassification.from_pretrained(train_model_name, num_labels=len(set(y)))
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
     X_train_tokenized = tokenizer(X_train, padding=True, truncation=True, max_length=512)
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         eval_steps=500,
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
-        num_train_epochs=5,
+        num_train_epochs=1,
         seed=42,
         load_best_model_at_end=True)
 
