@@ -1,5 +1,5 @@
 from datasets import load_dataset
-
+import configparser
 
 # dataset_name = "anjandash/java-8m-methods-v1"
 
@@ -11,9 +11,15 @@ from datasets import load_dataset
 
 # print((ds_valid["text"]))
 
-train_data = load_dataset("giganticode/java-cmpx-v1", split="train")  ## pd.read_csv(train_csv_path)
+# train_data = load_dataset("giganticode/java-cmpx-v1", split="train")  ## pd.read_csv(train_csv_path)
 
-X = list(train_data["text"])
-y = list(train_data["label"])
+# X = list(train_data["text"])
+# y = list(train_data["label"])
 
-print(len(set(y)))
+# print(len(set(y)))
+
+
+config = configparser.ConfigParser()
+config.read("./finetune/config/config.ini")
+
+print((config["train"]["seed"]))
