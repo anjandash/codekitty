@@ -90,13 +90,13 @@ if __name__ == "__main__":
 
     args = TrainingArguments(
         output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
-        seed=config["train"]["seed"],
-        evaluation_strategy=config["train"]["evaluation_strategy"],
-        eval_steps=config["train"]["eval_steps"],
-        per_device_train_batch_size=config["train"]["per_device_train_batch_size"],
-        per_device_eval_batch_size=config["train"]["per_device_eval_batch_size"],
-        num_train_epochs=config["train"]["num_train_epochs"],
-        load_best_model_at_end=config["train"]["load_best_model_at_end"])
+        seed=config.getint("train", "seed"),
+        evaluation_strategy=config.get("train", "evaluation_strategy"),
+        eval_steps=config.getint("train", "eval_steps"),
+        per_device_train_batch_size=config.getint("train", "per_device_train_batch_size"),
+        per_device_eval_batch_size=config.getint("train", "per_device_eval_batch_size"),
+        num_train_epochs=config.getint("train", "num_train_epochs"),
+        load_best_model_at_end=config.getboolean("train", "load_best_model_at_end"))
 
     trainer = Trainer(
         model=model,
