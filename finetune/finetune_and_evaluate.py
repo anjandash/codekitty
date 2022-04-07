@@ -48,12 +48,14 @@ def print_eval_scores(labels, pred, save_path):
     f1_score_ = f1_score(y_true=labels, y_pred=pred, average='macro')
 
     with open(save_path + "/results.txt", "w+") as f:
-        f.write("\n**********************")
-        f.write("\nACCURACY: ", accuracy)
-        f.write("\nF1 SCORE: ", f1_score_)
-        f.write("\nRECALL:   ", recall)
-        f.write("\nPRECISION:", precision)
-        f.write("\n**********************")     
+        output = "accuracy:" + accuracy + "\nf1_score:" + f1_score_ + "\nrecall:" + recall + "\nprecision:" + precision
+        f.write(output)
+        # f.write("\n**********************")
+        # f.write("\nACCURACY: ", accuracy)
+        # f.write("\nF1 SCORE: ", f1_score_)
+        # f.write("\nRECALL:   ", recall)
+        # f.write("\nPRECISION:", precision)
+        # f.write("\n**********************")     
 
 
 if __name__ == "__main__":
