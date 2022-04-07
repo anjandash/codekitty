@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name",       help="Enter the base model name or path which needs to be finetuned", required=True)
     parser.add_argument("--tokenizer_name",   help="Enter the base model name or path from which the tokenizer will be loaded", required=True)
-    parser.add_argument("--dataset_name",     help="Enter the dataset name or path which will be used to finetune the model", required=True)
+    parser.add_argument("--dataset_name",     help="Enter the dataset name or path which will be used to finetune/test the model", required=True)
     args = parser.parse_args()
 
     config = configparser.ConfigParser()
@@ -88,8 +88,9 @@ if __name__ == "__main__":
 
     # ********************** #    
 
+    save_path = sys.path[0] + "/models/finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]
     args = TrainingArguments(
-        output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
+        output_dir=save_path,
         seed=config.getint("train", "seed"),
         evaluation_strategy=config.get("train", "evaluation_strategy"),
         save_strategy=config.get("train", "save_strategy"),
@@ -124,6 +125,6 @@ if __name__ == "__main__":
     # ********************** #    
 
     df = pd.DataFrame(y_pred)
-    df.to_csv(sys.path[0] + "/eval_pred.csv", index=False, header=["pred_label"])
-    eval_data = pd.read_csv(sys.path[0] + "/eval_pred.csv", header=0)
+    df.to_csv(save_path + "/eval_pred.csv", index=False, header=["pred_label"])
+    eval_data = pd.read_csv(save_path + "/eval_pred.csv", header=0)
     print_eval_scores(test_data["label"], eval_data["pred_label"])

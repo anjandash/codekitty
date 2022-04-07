@@ -66,8 +66,8 @@ if __name__ == "__main__":
 
     # ********************** #    
 
-    df = pd.DataFrame(y_pred)
-    df.to_csv(sys.path[0] + "/eval_pred.csv", index=False, header=["pred_label"])
-    eval_data = pd.read_csv(sys.path[0] + "/eval_pred.csv", header=0)
+    eval_data = pd.DataFrame(y_pred)
+    # df.to_csv(sys.path[0] + "/eval_pred.csv", index=False, header=["pred_label"])
+    # eval_data = pd.read_csv(sys.path[0] + "/eval_pred.csv", header=0)
     print_eval_scores(test_data["label"], eval_data["pred_label"])
 

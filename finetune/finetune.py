@@ -75,8 +75,9 @@ if __name__ == "__main__":
 
     # ********************** #    
 
+    save_path = sys.path[0] + "/models/finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]
     args = TrainingArguments(
-        output_dir=("finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]),
+        output_dir=save_path,
         seed=config.getint("train", "seed"),
         evaluation_strategy=config.get("train", "evaluation_strategy"),
         save_strategy=config.get("train", "save_strategy"),
