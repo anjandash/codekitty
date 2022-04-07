@@ -22,7 +22,7 @@ models = {
 
 dataset_name = "giganticode/java-cmpx-v1"
 for k, model_name in models.items():
-    command = "CUDA_VISIBLE_DEVICES=1,2,3 python3 finetune_and_evaluate.py --model_name " + model_name + " --tokenizer_name " + model_name + " --dataset_name " + dataset_name
+    command = "CUDA_VISIBLE_DEVICES=1,2,3 python3 /home/akarmakar/codekitty/finetune/finetune_and_evaluate.py --model_name " + model_name + " --tokenizer_name " + model_name + " --dataset_name " + dataset_name
     process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
     outputs = process.communicate()[0].decode("utf-8")
 
