@@ -63,7 +63,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config = configparser.ConfigParser()
-    config.read("./config/config.ini")    
+    config.read(sys.path[0] + "/config/config.ini")    
 
     # ********************** #    
 
