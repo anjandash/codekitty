@@ -1,4 +1,5 @@
-import sys 
+import sys
+from matplotlib.pyplot import savefig 
 import torch
 import argparse
 import configparser
@@ -40,18 +41,19 @@ def compute_metrics(p):
 
     return {"accuracy": accuracy, "precision": precision, "recall": recall, "f1": f1_score_}       
 
-def print_eval_scores(labels, pred):
+def print_eval_scores(labels, pred, save_path):
     accuracy  = accuracy_score(y_true=labels, y_pred=pred)
     recall    = recall_score(y_true=labels, y_pred=pred, average='macro')
     precision = precision_score(y_true=labels, y_pred=pred, average='macro')
     f1_score_ = f1_score(y_true=labels, y_pred=pred, average='macro')
 
-    print("**********************")
-    print("ACCURACY: ", accuracy)
-    print("F1 SCORE: ", f1_score_)
-    print("RECALL:   ", recall)
-    print("PRECISION:", precision)
-    print("**********************")     
+    with open(save_path + "/results.txt", "w+") as f:
+        f.write("\n**********************")
+        f.write("\nACCURACY: ", accuracy)
+        f.write("\nF1 SCORE: ", f1_score_)
+        f.write("\nRECALL:   ", recall)
+        f.write("\nPRECISION:", precision)
+        f.write("\n**********************")     
 
 
 if __name__ == "__main__":
@@ -127,4 +129,4 @@ if __name__ == "__main__":
     df = pd.DataFrame(y_pred)
     df.to_csv(save_path + "/eval_pred.csv", index=False, header=["pred_label"])
     eval_data = pd.read_csv(save_path + "/eval_pred.csv", header=0)
-    print_eval_scores(test_data["label"], eval_data["pred_label"])
+    print_eval_scores(test_data["label"], eval_data["pred_label"], save_path)
