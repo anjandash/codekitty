@@ -3,15 +3,15 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from datasets import load_dataset
 
 models = {
-    "BERT":             "bert-base-uncased", 
-    "CodeBERT":         "microsoft/codebert-base",
-    "CodeBERTa":        "huggingface/CodeBERTa-small-v1", 
-    "GraphCodeBERT":    "microsoft/graphcodebert-base",
+    #"BERT":             "bert-base-uncased", 
+    #"CodeBERT":         "microsoft/codebert-base",
+    #"CodeBERTa":        "huggingface/CodeBERTa-small-v1", 
+    #"GraphCodeBERT":    "microsoft/graphcodebert-base",
     "CodeT5":           "Salesforce/codet5-base",
-    "JavaBERT-mini":    "anjandash/JavaBERT-mini",
+    #"JavaBERT-mini":    "anjandash/JavaBERT-mini",
     #"JavaBERT-small":   "anjandash/JavaBERT-small",
-    "PLBART-mtjava":    "uclanlp/plbart-multi_task-java",
-    "PLBART-large":     "uclanlp/plbart-large",
+    #"PLBART-mtjava":    "uclanlp/plbart-multi_task-java",
+    #"PLBART-large":     "uclanlp/plbart-large",
 }
 
 train_data = load_dataset("giganticode/java-cmpx-v1", split="train")  ## pd.read_csv(train_csv_path)
