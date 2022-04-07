@@ -17,5 +17,5 @@ names='huggingface/CodeBERTa-small-v1'
 dataset='giganticode/java-cmpx-v1'
 for name in $names
 do
-CUDA_VISIBLE_DEVICES=1,2,3 python3 /home/akarmakar/codekitty/finetune/finetune_and_evaluate.py --model_name $name --tokenizer_name $name --dataset_name $dataset > $name + "_" + $dataset + ".log"
+CUDA_VISIBLE_DEVICES=1,2,3 python3 /home/akarmakar/codekitty/finetune/finetune_and_evaluate.py --model_name $name --tokenizer_name $name --dataset_name $dataset > finetune.log
 done
