@@ -1,27 +1,43 @@
 import os, sys, csv 
+
+from subprocess import Popen, PIPE
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from datasets import load_dataset
 
 models = {
-    #"BERT":             "bert-base-uncased", 
-    #"CodeBERT":         "microsoft/codebert-base",
-    #"CodeBERTa":        "huggingface/CodeBERTa-small-v1", 
-    #"GraphCodeBERT":    "microsoft/graphcodebert-base",
-    "CodeT5":           "Salesforce/codet5-base",
-    #"JavaBERT-mini":    "anjandash/JavaBERT-mini",
-    #"JavaBERT-small":   "anjandash/JavaBERT-small",
-    #"PLBART-mtjava":    "uclanlp/plbart-multi_task-java",
-    #"PLBART-large":     "uclanlp/plbart-large",
+    # "BERT":             "bert-base-uncased", 
+    # "CodeBERT":         "microsoft/codebert-base",
+    "CodeBERTa":        "huggingface/CodeBERTa-small-v1", 
+    # "GraphCodeBERT":    "microsoft/graphcodebert-base",
+    # "PLBART-csjava":    "uclanlp/plbart-java-cs",
+    # "PLBART-mtjava":    "uclanlp/plbart-multi_task-java",
+    # "PLBART-large":     "uclanlp/plbart-large",
+    # "JavaBERT-mini":    "anjandash/JavaBERT-mini",
+    # "JavaBERT-small":   "anjandash/JavaBERT-small",    
+    # "AugCode":          "Fujitsu/AugCode",
+    # "FinBERT":          "ProsusAI/finbert",
+    # "CodeT5":           "Salesforce/codet5-base",
 }
 
-train_data = load_dataset("giganticode/java-cmpx-v1", split="train")  ## pd.read_csv(train_csv_path)
-X = list(train_data["text"])
-y = list(train_data["label"])
+
+dataset_name = "giganticode/java-cmpx-v1"
+for k, model_name in models.items():
+    command = "CUDA_VISIBLE_DEVICES=1,2,3 python3 finetune_and_evaluate.py --model_name " + model_name + " --tokenizer_name " + model_name + " --dataset_name " + dataset_name
+    process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
+    outputs = process.communicate()[0].decode("utf-8")
+
+    print("Model: ", model_name)
+    print("Dataset: ", dataset_name)
+    print("-----------------------")
+    print(outputs)
+    print("-----------------------")
 
 
-for k,v in models.items():
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(v)
-        model = AutoModelForSequenceClassification.from_pretrained(v, num_labels=len(set(y)))
-    except Exception as e:
-        print(e)
+
+
+# for k,v in models.items():
+#     try:
+#         tokenizer = AutoTokenizer.from_pretrained(v)
+#         model = AutoModelForSequenceClassification.from_pretrained(v, num_labels=2)
+#     except Exception as e:
+#         print(e)
