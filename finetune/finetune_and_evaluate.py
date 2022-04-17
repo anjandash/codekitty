@@ -77,7 +77,10 @@ if __name__ == "__main__":
 
     # ********************** #
 
-    train_data = load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
+    train_csv_path = "../data/jcub_exp/jcub_train_full_scale_csv.csv"
+    test_csv_path  = "../data/jcub_exp/jcub_test_full_scale_csv.csv"
+
+    train_data = pd.read_csv(train_csv_path) #load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
     X = list(train_data["text"])
     y = list(train_data["label"])
 
@@ -118,7 +121,7 @@ if __name__ == "__main__":
 
     # ********************** #    
 
-    test_data = load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
+    test_data = pd.read_csv(test_csv_path) #load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
     X_test = list(test_data["text"])
     X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
     test_dataset = Dataset(X_test_tokenized)    
