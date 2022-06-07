@@ -3,7 +3,6 @@ import subprocess
 
 
 models = [
-    'huggingface/CodeBERTa-small-v1',
     "bert-base-uncased", 
     "microsoft/codebert-base",
     "huggingface/CodeBERTa-small-v1", 

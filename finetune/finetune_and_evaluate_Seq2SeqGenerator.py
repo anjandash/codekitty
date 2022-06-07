@@ -10,9 +10,8 @@ from datasets import load_dataset
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from transformers import TrainingArguments, Trainer
-from transformers import BertTokenizer, BertForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, Seq2SeqTrainingArguments, Seq2SeqTrainer, DataCollatorForSeq2Seq
 from transformers import EarlyStoppingCallback
 
 class Dataset(torch.utils.data.Dataset):
@@ -79,14 +78,14 @@ if __name__ == "__main__":
     # ********************** #
 
     train_csv_path = ""
-    test_csv_path  = ""    
+    test_csv_path  = ""
 
-    train_data = pd.read_csv(train_csv_path) #load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
+    train_data = load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
     X = list(train_data["text"])
     y = list(train_data["label"])
 
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
-    model = AutoModelForSequenceClassification.from_pretrained(train_model_name, num_labels=len(set(y)))
+    model = AutoModelForSeq2SeqLM.from_pretrained(train_model_name)
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
     X_train_tokenized = tokenizer(X_train, padding=True, truncation=True, max_length=512)
     X_val_tokenized = tokenizer(X_val, padding=True, truncation=True, max_length=512)
@@ -97,7 +96,7 @@ if __name__ == "__main__":
     # ********************** #    
 
     save_path = sys.path[0] + "/models/finetuned_" + train_model_name[train_model_name.find("/")+1:] + "_" + dataset_name[dataset_name.find("/")+1:]
-    args = TrainingArguments(
+    args = Seq2SeqTrainingArguments(
         output_dir=save_path,
         seed=config.getint("train", "seed"),
         evaluation_strategy=config.get("train", "evaluation_strategy"),
@@ -109,12 +108,15 @@ if __name__ == "__main__":
         num_train_epochs=config.getint("train", "num_train_epochs"),
         load_best_model_at_end=config.getboolean("train", "load_best_model_at_end"))
 
+    data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
-    trainer = Trainer(
+    trainer = Seq2SeqTrainer(
         model=model,
         args=args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
+        data_collator=data_collator,
+        tokenizer=tokenizer,
         compute_metrics=compute_metrics,
         callbacks=[EarlyStoppingCallback(early_stopping_patience=3)])
 
@@ -122,7 +124,7 @@ if __name__ == "__main__":
 
     # ********************** #    
 
-    test_data = pd.read_csv(test_csv_path) #load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
+    test_data = load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
     X_test = list(test_data["text"])
     X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
     test_dataset = Dataset(X_test_tokenized)    
