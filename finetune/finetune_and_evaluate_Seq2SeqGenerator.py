@@ -28,7 +28,6 @@ class Dataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.encodings["input_ids"])
 
-
 def compute_metrics(p):
     pred, labels = p
     pred = np.argmax(pred, axis=1)
@@ -61,9 +60,9 @@ def print_eval_scores(labels, pred, save_path):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_name",       help="Enter the base model name or path which needs to be finetuned", required=True)
-    parser.add_argument("--tokenizer_name",   help="Enter the base model name or path from which the tokenizer will be loaded", required=True)
-    parser.add_argument("--dataset_name",     help="Enter the dataset name or path which will be used to finetune/test the model", required=True)
+    parser.add_argument("--model_name", "-m",       help="Enter the base model name or path which needs to be finetuned", required=True)
+    parser.add_argument("--tokenizer_name", "-t",   help="Enter the base model name or path from which the tokenizer will be loaded", required=True)
+    parser.add_argument("--dataset_name", "-d",     help="Enter the dataset name or path which will be used to finetune/test the model", required=True)
     args = parser.parse_args()
 
     config = configparser.ConfigParser()
@@ -77,12 +76,12 @@ if __name__ == "__main__":
 
     # ********************** #
 
-    train_csv_path = ""
-    test_csv_path  = ""
+    train_csv_path = "/home/akarmakar/codekitty/data/JEMMA_LOCALNESS_CK_MAIN/JEMMA_COMP_train_CODEKITTY_RF.csv"
+    test_csv_path  = "/home/akarmakar/codekitty/data/JEMMA_LOCALNESS_CK_MAIN/JEMMA_COMP_test_CODEKITTY_RF.csv"
 
-    train_data = load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
-    X = list(train_data["text"])
-    y = list(train_data["label"])
+    train_data = pd.read_csv(train_csv_path) #load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
+    X = list(train_data["method_tokens"])
+    y = list(train_data["call_label"])
 
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(train_model_name)
@@ -125,7 +124,7 @@ if __name__ == "__main__":
     # ********************** #    
 
     test_data = load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
-    X_test = list(test_data["text"])
+    X_test = list(test_data["method_tokens"])
     X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
     test_dataset = Dataset(X_test_tokenized)    
 
