@@ -50,9 +50,19 @@ model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 model_name = model_checkpoint.split("/")[-1]
 training_args = TrainingArguments(
     f"{model_name}-finetuned-COMP",
-    evaluation_strategy = "epoch",
+    # evaluation_strategy = "epoch",
     learning_rate=2e-5,
     weight_decay=0.01,
+    # load_best_model_at_end=True,
+
+    seed=42,
+    evaluation_strategy="steps",
+    save_strategy="steps",
+    eval_steps=5000,
+    save_steps=5000,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    num_train_epochs=10,
     load_best_model_at_end=True,
     # push_to_hub=True,
 )

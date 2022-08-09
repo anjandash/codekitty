@@ -79,7 +79,7 @@ if __name__ == "__main__":
     train_csv_path = "/home/akarmakar/codekitty/data/JEMMA_LOCALNESS_CK_MAIN/JEMMA_COMP_train_CODEKITTY_RF.csv"
     test_csv_path  = "/home/akarmakar/codekitty/data/JEMMA_LOCALNESS_CK_MAIN/JEMMA_COMP_test_CODEKITTY_RF.csv"
 
-    train_data = pd.read_csv(train_csv_path) #load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
+    train_data = pd.read_csv(train_csv_path, header=0) #load_dataset(dataset_name, split="train")  ## pd.read_csv(train_csv_path)
     X = list(train_data["method_tokens"])
     y = list(train_data["call_label"])
 
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
     # ********************** #    
 
-    test_data = load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
+    test_data = pd.read_csv(test_csv_path, header=0) #load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
     X_test = list(test_data["method_tokens"])
     X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
     test_dataset = Dataset(X_test_tokenized)    
