@@ -12,9 +12,10 @@ import numpy as np
 import sys
 
 block_size = 512
-model_checkpoint = "distilroberta-base"
-train_csv_path = "/home/akarmakar/codekitty/data/jemma_COMP_MAIN/JEMMA_COMP_train_MAIN.csv"
-valid_csv_path  = "/home/akarmakar/codekitty/data/jemma_COMP_MAIN/JEMMA_COMP_valid_MAIN.csv"
+model_checkpoint = ""
+model_dataset = "jemma_COMP_MAIN"
+train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
+valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 datasets = load_dataset("csv", data_files={"train": train_csv_path, "test": valid_csv_path})
 
 
@@ -49,7 +50,7 @@ lm_datasets = tokenized_datasets.map(
 model = AutoModelForMaskedLM.from_pretrained(model_checkpoint)
 model_name = model_checkpoint.split("/")[-1]
 training_args = TrainingArguments(
-    f"{model_name}-finetuned-COMP",
+    f"{model_name}-finetuned-{model_dataset}",
     # evaluation_strategy = "epoch",
     learning_rate=2e-5,
     weight_decay=0.01,
@@ -62,7 +63,7 @@ training_args = TrainingArguments(
     save_steps=5000,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=10,
+    num_train_epochs=2,
     load_best_model_at_end=True,
     # push_to_hub=True,
 )
