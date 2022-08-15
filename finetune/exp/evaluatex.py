@@ -33,6 +33,8 @@ predictor = pipeline(task="fill-mask", model=model, tokenizer=tokenizer)
 
 orig = []
 pred = []
+noms = 0
+errs = 0
 for snippet, orig_label in zip(X_test, y_test):
     # if "[MASK]" not in snippet:
     #     print("[MASK] not in snippet")
@@ -52,13 +54,18 @@ for snippet, orig_label in zip(X_test, y_test):
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
 
+    if "<mask>" not in snippet:
+        noms+=1
+        continue
+
     try:
         predictions = predictor(snippet)
         pred_label = (predictions[0]["token_str"])
     except Exception as e:
         print(e)
-        print("If [MASK] not found, possibly [MASK] is truncated after tokenization.")
-        input()
+        #print("If [MASK] not found, possibly [MASK] is truncated after tokenization.")
+        #input()
+        errs+=1
         continue
 
     print("orig_label:", orig_label)
@@ -71,3 +78,6 @@ for snippet, orig_label in zip(X_test, y_test):
 # pred_dict = {"orig": orig, "pred": pred_label} 
 # df = pd.DataFrame([pred_dict])
 # df.to_csv(f"{model_checkpoint_path}eval_pred.csv", index=False)
+
+print("Truncated inputs without masks:", noms)
+print("Errors:", errs)
