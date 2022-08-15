@@ -83,7 +83,8 @@ trainer = Trainer(
 )
 
 # trainer.train()    
-
+print("Going for prediction ... ")
+print("")
 
 test_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 test_data = pd.read_csv(test_csv_path, header=0) #load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
