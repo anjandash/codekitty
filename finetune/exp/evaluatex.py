@@ -14,7 +14,7 @@ model_checkpoint = model_checkpoints[1]
 model_dataset = "jemma_COMP_MAIN_CSPACE"
 checkpoint_number = 20000
 
-model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint+"-finetuned-"+model_dataset+"/checkpoint-"+checkpoint_number
+model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 
@@ -35,14 +35,15 @@ orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
     snippet = snippet.replace("[MASK]", "<mask>")
-    print(snippet)
-    print()
+    # print(snippet)
+    # print()
 
     predictions = predictor(snippet)
     pred_label = (predictions[0]["token_str"])
 
     print("orig_label:", orig_label)
     print("pred_label:", pred_label)
+    print()
 
     orig.append(orig_label)
     pred.append(pred_label)
