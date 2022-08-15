@@ -14,7 +14,7 @@ import sys
 epochs = 10
 block_size = 512
 model_checkpoints = ["bert-base-uncased", "huggingface/CodeBERTa-small-v1", "microsoft/codebert-base-mlm", "microsoft/graphcodebert-base"]
-model_checkpoint =  "/home/akarmakar/codekitty/finetune/exp/CodeBERTa-small-v1-finetuned-COMP/checkpoint-20000"
+model_checkpoint =  "/home/akarmakar/codekitty/finetune/exp/CodeBERTa-small-v1-finetuned-COMP/checkpoint-20000/"
 model_dataset = "jemma_COMP_MAIN_CCOMM"
 
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
@@ -40,7 +40,7 @@ def group_texts(examples):
     return result
 
 
-tokenizer = AutoTokenizer.from_pretrained(model_checkpoint, use_fast=True)
+tokenizer = AutoTokenizer.from_pretrained("huggingface/CodeBERTa-small-v1", use_fast=True)
 tokenized_datasets = datasets.map(tokenize_function, batched=True, num_proc=4, remove_columns=["text", "call_type", "class_id", "method_id", "project_id", "project_size", "project_split", "labels"])
 lm_datasets = tokenized_datasets.map(
     group_texts,
