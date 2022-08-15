@@ -34,6 +34,9 @@ predictor = pipeline(task="fill-mask", model=model, tokenizer=tokenizer)
 orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
+    if not "[MASK]" in snippet:
+        snippet = snippet.replace(orig_label, "[MASK]")
+        
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
