@@ -34,26 +34,32 @@ predictor = pipeline(task="fill-mask", model=model, tokenizer=tokenizer)
 orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
-    if "[MASK]" not in snippet:
-        print("[MASK] not in snippet")
-        if orig_label in snippet:
-            print("But orig_label in snippet")
-            snippet = snippet.replace(orig_label, "[MASK]")
-        else:
-            print("ERROR:")
-            print(snippet)
-            print(orig_label)
+    # if "[MASK]" not in snippet:
+    #     print("[MASK] not in snippet")
+    #     if orig_label in snippet:
+    #         print("But orig_label in snippet")
+    #         snippet = snippet.replace(orig_label, "[MASK]")
+    #     else:
+    #         print("ERROR:")
+    #         print(snippet)
+    #         print(orig_label)
 
-            input()
-            continue
+    #         input()
+    #         continue
 
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
 
-    predictions = predictor(snippet)
-    pred_label = (predictions[0]["token_str"])
+    try:
+        predictions = predictor(snippet)
+        pred_label = (predictions[0]["token_str"])
+    except Exception as e:
+        print(e)
+        print("If [MASK] not found, possibly [MASK] is truncated after tokenization.")
+        input()
+        continue
 
     print("orig_label:", orig_label)
     print("pred_label:", pred_label)
