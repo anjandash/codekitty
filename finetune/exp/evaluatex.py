@@ -14,7 +14,7 @@ model_checkpoint = model_checkpoints[1]
 model_dataset = "jemma_COMP_MAIN_CSPACE"
 checkpoint_number = 20000
 
-model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)+"/"
+model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)+"/"
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 
