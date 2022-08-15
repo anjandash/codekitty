@@ -35,7 +35,9 @@ orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
     if "[MASK]" not in snippet:
+        print("[MASK] not in snippet")
         if orig_label in snippet:
+            print("But orig_label in snippet")
             snippet = snippet.replace(orig_label, "[MASK]")
         else:
             print("ERROR:")
