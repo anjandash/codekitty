@@ -93,16 +93,16 @@ X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=5
 test_dataset = Dataset(X_test_tokenized)    
 
 raw_pred, _, _ = trainer.predict(test_dataset)       # Make prediction
-y_pred = np.argmax(raw_pred, axis=1)                 # Preprocess raw predictions
+# y_pred = np.argmax(raw_pred, axis=1)                 # Preprocess raw predictions
 
 # ********************** #    
 
 # PRED
-print("Going for prediction ... ")
-print(y_pred[:5])
-print("")
+# print("Going for prediction ... ")
+# print(y_pred[:5])
+# print("")
 
-df = pd.DataFrame(y_pred)
-df.to_csv(sys.path[0] + f"/{model_name}-finetuned-{model_dataset}-{epochs}" + "/eval_pred.csv", index=False, header=["pred_label"])
+# df = pd.DataFrame(y_pred)
+# df.to_csv(sys.path[0] + f"/{model_name}-finetuned-{model_dataset}-{epochs}" + "/eval_pred.csv", index=False, header=["pred_label"])
 # eval_data = pd.read_csv(save_path + "/eval_pred.csv", header=0)
 # print_eval_scores(test_data["label"], eval_data["pred_label"], save_path)
