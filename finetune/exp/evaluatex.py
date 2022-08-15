@@ -82,7 +82,7 @@ trainer = Trainer(
     data_collator=data_collator,
 )
 
-trainer.train()    
+# trainer.train()    
 
 
 test_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
@@ -95,6 +95,11 @@ raw_pred, _, _ = trainer.predict(test_dataset)       # Make prediction
 y_pred = np.argmax(raw_pred, axis=1)                 # Preprocess raw predictions
 
 # ********************** #    
+
+# PRED
+print("Going for prediction ... ")
+print(y_pred[:5])
+print("")
 
 df = pd.DataFrame(y_pred)
 df.to_csv(sys.path[0] + f"/{model_name}-finetuned-{model_dataset}-{epochs}" + "/eval_pred.csv", index=False, header=["pred_label"])
