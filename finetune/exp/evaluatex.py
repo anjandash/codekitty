@@ -41,8 +41,9 @@ for snippet, orig_label in zip(X_test, y_test):
             print("ERROR:")
             print(snippet)
             print(orig_label)
-            
+
             input()
+            continue
 
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
