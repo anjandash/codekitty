@@ -37,9 +37,7 @@ for snippet, orig_label in zip(X_test, y_test):
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
-    print(snippet)
-    #print(snippetx)
-    print(snippety)
+    snippetz = snippety.replace("<s>", "").replace("</s>", "")
 
     predictions = predictor(snippet)
     pred_label = (predictions[0]["token_str"])
