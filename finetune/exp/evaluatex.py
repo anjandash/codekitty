@@ -43,5 +43,6 @@ predictor = pipeline(task="fill-mask", model=model, tokenizer=tokenizer)
 
 pred = []
 for snippet in X_test:
-    x = predictor(snippet)
+    print(snippet)
+    #x = predictor(snippet)
     break
