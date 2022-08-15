@@ -14,7 +14,7 @@ model_checkpoint = model_checkpoints[1]
 model_dataset = "jemma_COMP_MAIN_CSPACE"
 checkpoint_number = 20000
 
-model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)
+model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)+"/"
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 
@@ -50,4 +50,4 @@ for snippet, orig_label in zip(X_test, y_test):
 
 # pred_dict = {"orig": orig, "pred": pred_label} 
 # df = pd.DataFrame([pred_dict])
-# df.to_csv(f"{model_checkpoint_path}/eval_pred.csv", index=False)
+# df.to_csv(f"{model_checkpoint_path}eval_pred.csv", index=False)
