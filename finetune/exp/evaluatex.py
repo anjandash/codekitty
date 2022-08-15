@@ -35,7 +35,14 @@ orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
     if "[MASK]" not in snippet:
-        snippet = snippet.replace(orig_label, "[MASK]")
+        if orig_label in snippet:
+            snippet = snippet.replace(orig_label, "[MASK]")
+        else:
+            print("ERROR:")
+            print(snippet)
+            print(orig_label)
+            
+            input()
 
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
