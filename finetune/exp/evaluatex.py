@@ -9,12 +9,12 @@ import sys
 
 
 model_checkpoints = ["bert-base-uncased", "huggingface/CodeBERTa-small-v1", "microsoft/codebert-base-mlm", "microsoft/graphcodebert-base"]
-
-model_checkpoint = model_checkpoints[1]
+model_checkpoint = model_checkpoints[0]
 model_dataset = "jemma_COMP_MAIN_CSPACE"
 checkpoint_number = 20000
+epoch = 10
 
-model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"/checkpoint-"+str(checkpoint_number)+"/"
+model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"-"+epoch+"/checkpoint-"+str(checkpoint_number)+"/"
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 
@@ -44,9 +44,6 @@ for snippet, orig_label in zip(X_test, y_test):
     #     else:
     #         print("ERROR:")
     #         print(snippet)
-    #         print(orig_label)
-
-    #         input()
     #         continue
 
     snippet = snippet.replace("[MASK]", "<mask>")
@@ -75,9 +72,9 @@ for snippet, orig_label in zip(X_test, y_test):
     orig.append(orig_label)
     pred.append(pred_label)
 
-# pred_dict = {"orig": orig, "pred": pred_label} 
-# df = pd.DataFrame([pred_dict])
-# df.to_csv(f"{model_checkpoint_path}eval_pred.csv", index=False)
+pred_dict = {"orig": orig, "pred": pred_label} 
+df = pd.DataFrame([pred_dict])
+df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-finetuned-{model_dataset}-{epoch}__eval_pred.csv", index=False)
 
 print("Truncated inputs without masks:", noms)
 print("Errors:", errs)
