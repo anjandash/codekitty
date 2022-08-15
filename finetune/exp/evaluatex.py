@@ -30,14 +30,14 @@ y_test = list(test_data["labels"])
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 model = AutoModelForMaskedLM.from_pretrained(model_checkpoint_path)
 predictor = pipeline(task="fill-mask", model=model, tokenizer=tokenizer)
-X_test = tokenizer(test_data["text"], padding=True, truncation=True, max_length=512)
 
 orig = []
 pred = []
 for snippet, orig_label in zip(X_test, y_test):
     snippet = snippet.replace("[MASK]", "<mask>")
-    # print(snippet)
-    # print()
+    snippetx = tokenizer(snippet, truncation=True, max_length=512)
+    print(snippet)
+    print(snippetx)
 
     predictions = predictor(snippet)
     pred_label = (predictions[0]["token_str"])
