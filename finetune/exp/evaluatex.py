@@ -92,7 +92,7 @@ X_test = list(test_data["text"])
 X_test_tokenized = tokenizer(X_test, padding=True, truncation=True, max_length=512)
 test_dataset = Dataset(X_test_tokenized)    
 
-raw_pred, _, _ = trainer.predict(test_dataset)       # Make prediction
+# raw_pred, _, _ = trainer.predict(test_dataset)       # Make prediction
 # y_pred = np.argmax(raw_pred, axis=1)                 # Preprocess raw predictions
 
 # ********************** #    
