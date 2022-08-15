@@ -18,8 +18,7 @@ model_checkpoints = ["bert-base-uncased", "huggingface/CodeBERTa-small-v1", "mic
 
 model_checkpoint = model_checkpoints[1]
 model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/CodeBERTa-small-v1-finetuned-jemma_COMP_MAIN_CSPACE/checkpoint-20000"
-
-model_dataset = "jemma_COMP_MAIN_CCOMM"
+model_dataset = "jemma_COMP_MAIN_CSPACE"
 
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
