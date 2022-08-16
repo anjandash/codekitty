@@ -12,7 +12,7 @@ import sys
 model_checkpoints = ["bert-base-uncased", "huggingface/CodeBERTa-small-v1", "microsoft/codebert-base-mlm", "microsoft/graphcodebert-base"]
 model_checkpoint = model_checkpoints[0]
 model_dataset = "jemma_COMP_MAIN_NSPACE"
-checkpoint_number = 20000
+checkpoint_number = 200000
 epoch = 10
 
 model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"-"+epoch+"/checkpoint-"+str(checkpoint_number)+"/"
