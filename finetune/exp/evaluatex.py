@@ -57,15 +57,15 @@ for snippet, orig_label in zip(X_test, y_test):
     snippet = snippety.replace("<s>", "").replace("</s>", "")
 
     if "< mask >" in snippet:
-        snippet = snippet.replace("< mask >", "<mask>")
+        snippet = snippet.replace("< mask >", "[MASK]")
 
     # print(snippet)
     # print()
     # input()
 
-    if "<mask>" not in snippet:
-        noms+=1
-        continue
+    # if "<mask>" not in snippet:
+    #     noms+=1
+    #     continue
 
     try:
         predictions = predictor(snippet)
