@@ -55,13 +55,17 @@ for snippet, orig_label in zip(X_test, y_test):
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
-    print(snippet)
-    print()
-    input()
 
-    # if "<mask>" not in snippet:
-    #     noms+=1
-    #     continue
+    if "< mask >" in snippet:
+        snippet = snippet.replace("< mask >", "<mask>")
+
+    # print(snippet)
+    # print()
+    # input()
+
+    if "<mask>" not in snippet:
+        noms+=1
+        continue
 
     try:
         predictions = predictor(snippet)
