@@ -66,16 +66,16 @@ for snippet, orig_label in zip(X_test, y_test):
         errs+=1
         continue
 
-    # print("orig_label:", orig_label)
-    # print("pred_label:", pred_label)
-    # print()
+    print("orig_label:", orig_label)
+    print("pred_label:", pred_label)
+    print()
 
     orig.append(orig_label)
     pred.append(pred_label)
 
 pred_dict = {"orig": orig, "pred": pred_label} 
 df = pd.DataFrame([pred_dict])
-df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{checkpoint_number}-finetuned-{model_dataset}-{epoch}__eval_pred.csv", index=False)
+df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{epoch}__eval_pred.csv", index=False)
 
 print("Accuracy:", accuracy_score(orig, pred))
 print("Truncated inputs without masks:", noms)
