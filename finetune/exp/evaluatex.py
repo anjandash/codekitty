@@ -10,7 +10,7 @@ import sys
 
 model_checkpoints = ["bert-base-uncased", "huggingface/CodeBERTa-small-v1", "microsoft/codebert-base-mlm", "microsoft/graphcodebert-base"]
 model_checkpoint = model_checkpoints[0]
-model_dataset = "jemma_COMP_MAIN_CSPACE"
+model_dataset = "jemma_COMP_MAIN_NSPACE"
 checkpoint_number = 20000
 epoch = 10
 
