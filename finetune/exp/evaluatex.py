@@ -73,7 +73,7 @@ for snippet, orig_label in zip(X_test, y_test):
     orig.append(orig_label)
     pred.append(pred_label)
 
-pred_dict = {"orig": orig, "pred": pred_label} 
+pred_dict = {"orig": orig, "pred": pred} 
 df = pd.DataFrame([pred_dict])
 df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{str(epoch)}__eval_pred.csv", index=False)
 
