@@ -40,22 +40,24 @@ errs = 0
 print(len(X_test))
 print(len(y_test))
 for snippet, orig_label in zip(X_test, y_test):
-    if "[MASK]" not in snippet:
-        print("[MASK] not in snippet")
-        if orig_label in snippet:
-            print("But orig_label in snippet")
-            snippet = snippet.replace(orig_label, "[MASK]")
-        else:
-            print("ERROR:")
-            print(snippet)
-            continue
+    # if "[MASK]" not in snippet:
+    #     print("[MASK] not in snippet")
+    #     if orig_label in snippet:
+    #         print("But orig_label in snippet")
+    #         snippet = snippet.replace(orig_label, "[MASK]")
+    #     else:
+    #         print("ERROR:")
+    #         print(snippet)
+    #         continue
 
     #print(snippet)
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
-    #print(snippet)
+    print(snippet)
+    print()
+    input()
 
     # if "<mask>" not in snippet:
     #     noms+=1
