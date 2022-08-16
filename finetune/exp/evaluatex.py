@@ -57,9 +57,9 @@ for snippet, orig_label in zip(X_test, y_test):
     snippet = snippety.replace("<s>", "").replace("</s>", "")
     #print(snippet)
 
-    if "<mask>" not in snippet:
-        noms+=1
-        continue
+    # if "<mask>" not in snippet:
+    #     noms+=1
+    #     continue
 
     try:
         predictions = predictor(snippet)
