@@ -50,12 +50,12 @@ for snippet, orig_label in zip(X_test, y_test):
             print(snippet)
             continue
 
-    print(snippet)
+    #print(snippet)
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
-    print(snippet)
+    #print(snippet)
 
     if "<mask>" not in snippet:
         noms+=1
