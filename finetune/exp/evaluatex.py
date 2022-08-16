@@ -15,7 +15,7 @@ model_dataset = "jemma_COMP_MAIN_NSPACE"
 checkpoint_number = 200000
 epoch = 10
 
-model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"-"+epoch+"/checkpoint-"+str(checkpoint_number)+"/"
+model_checkpoint_path =  "/home/akarmakar/codekitty/finetune/exp/"+model_checkpoint.split("/")[-1]+"-finetuned-"+model_dataset+"-"+str(epoch)+"/checkpoint-"+str(checkpoint_number)+"/"
 train_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_train_MAIN.csv"
 valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
 
@@ -75,7 +75,7 @@ for snippet, orig_label in zip(X_test, y_test):
 
 pred_dict = {"orig": orig, "pred": pred_label} 
 df = pd.DataFrame([pred_dict])
-df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{epoch}__eval_pred.csv", index=False)
+df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{str(epoch)}__eval_pred.csv", index=False)
 
 print("Accuracy:", accuracy_score(orig, pred))
 print("Truncated inputs without masks:", noms)
