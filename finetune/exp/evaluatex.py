@@ -22,7 +22,7 @@ valid_csv_path  = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_v
 print("Going for prediction ... ")
 print("_________________________")
 
-test_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_valid_MAIN.csv"
+test_csv_path = "/home/akarmakar/codekitty/data/"+model_dataset+"/JEMMA_COMP_test_MAIN.csv"
 test_data = pd.read_csv(test_csv_path, header=0) #load_dataset(dataset_name, split="test") ## pd.read_csv(test_csv_path)
 
 X_test = list(test_data["text"])
@@ -47,10 +47,12 @@ for snippet, orig_label in zip(X_test, y_test):
     #         print(snippet)
     #         continue
 
+    #print(snippet)
     snippet = snippet.replace("[MASK]", "<mask>")
     snippetx = tokenizer(snippet, truncation=True, max_length=512)
     snippety = tokenizer.decode(snippetx["input_ids"])
     snippet = snippety.replace("<s>", "").replace("</s>", "")
+    #print(snippet)
 
     if "<mask>" not in snippet:
         noms+=1
