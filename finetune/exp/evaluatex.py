@@ -95,7 +95,7 @@ for model_checkpoint in model_checkpoints:
         # df = pd.DataFrame([pred_dict])
         # df.to_csv(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{str(epoch)}__eval_pred.csv", index=False)
 
-        with open(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{str(epoch)}__eval_pred__MANUAL.csv", "w+") as wr:
+        with open(f"{model_checkpoint_path}{(model_checkpoint.split('/')[-1])}-checkpoint-{str(checkpoint_number)}-finetuned-{model_dataset}-{str(epoch)}__eval_pred__MANUAL2.csv", "w+") as wr:
             csv_writer = csv.writer(wr)
             csv_writer.writerow(["orig", "pred"])
 
