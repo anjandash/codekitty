@@ -54,6 +54,8 @@ for model_checkpoint in model_checkpoints:
                 else:
                     print("ERROR:")
                     print(snippet)
+                    orig.append(orig_label)
+                    pred.append("----")                    
                     continue
 
             snippet = snippet.replace("[MASK]", "<mask>")
@@ -78,6 +80,8 @@ for model_checkpoint in model_checkpoints:
                 #print("If [MASK] not found, possibly [MASK] is truncated after tokenization.")
                 #input()
                 errs+=1
+                orig.append(orig_label)
+                pred.append("----")
                 continue
 
             # print("orig_label:", orig_label)
